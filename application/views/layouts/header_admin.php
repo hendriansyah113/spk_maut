@@ -43,10 +43,7 @@
        <!-- Sidebar - Brand -->
        <a class="sidebar-brand d-flex align-items-center justify-content-center"
          href="<?= base_url('Login/home'); ?>">
-         <div class="sidebar-brand-icon rotate-n-15">
-           <i class="fas fa-database"></i>
-         </div>
-         <div class="sidebar-brand-text mx-3">STG</div>
+         <img src="<?= base_url('assets/') ?>img/logostg.png" alt="" srcset="" width="50%" color="white">
        </a>
 
        <!-- Divider -->

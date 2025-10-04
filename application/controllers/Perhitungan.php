@@ -43,6 +43,8 @@ class Perhitungan extends CI_Controller
             foreach ($kriteria as $key) {
                 $data_pencocokan = $this->Perhitungan_model->data_nilai($keys->id_alternatif, $key->id_kriteria);
                 $min_max = $this->Perhitungan_model->get_max_min($key->id_kriteria);
+                $selisih = $min_max['max'] - $min_max['min'];
+
                 $hasil_normalisasi = @(round(($data_pencocokan['nilai'] - $min_max['min']) / ($min_max['max'] - $min_max['min']), 4));
                 $bobot = $key->bobot;
                 $nilai_total += $bobot * $hasil_normalisasi;
@@ -51,6 +53,7 @@ class Perhitungan extends CI_Controller
                 'id_alternatif' => $keys->id_alternatif,
                 'nilai' => $nilai_total
             ];
+
             $result = $this->Perhitungan_model->insert_nilai_hasil($hasil_akhir);
         }
 
