@@ -5,24 +5,31 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Penilaian_model extends CI_Model
 {
 
-    public function tampil()
+    public function tampil($bulan, $tahun)
     {
-        $query = $this->db->get('penilaian');
-        return $query->result();
+        return $this->db
+            ->get('penilaian')
+            ->result();
     }
 
-
-    public function tambah_penilaian($id_alternatif, $id_kriteria, $nilai)
+    public function tambah_penilaian($id_alternatif, $id_kriteria, $nilai, $bulan, $tahun)
     {
-        $query = $this->db->simple_query("INSERT INTO penilaian VALUES (DEFAULT,'$id_alternatif','$id_kriteria',$nilai);");
+        $query = $this->db->simple_query("INSERT INTO penilaian VALUES (DEFAULT,'$id_alternatif','$id_kriteria',$nilai,$bulan,$tahun);");
         return $query;
     }
 
-    public function edit_penilaian($id_alternatif, $id_kriteria, $nilai)
+    public function edit_penilaian($id_alt, $id_kri, $nilai, $bulan, $tahun)
     {
-        $query = $this->db->simple_query("UPDATE penilaian SET nilai=$nilai WHERE id_alternatif='$id_alternatif' AND id_kriteria='$id_kriteria';");
-        return $query;
+        return $this->db->query("
+        UPDATE penilaian 
+        SET nilai='$nilai'
+        WHERE id_alternatif='$id_alt'
+        AND id_kriteria='$id_kri'
+        AND bulan='$bulan'
+        AND tahun='$tahun'
+    ");
     }
+
 
 
     public function delete($id_penilaian)
@@ -48,14 +55,25 @@ class Penilaian_model extends CI_Model
         return $query->result();
     }
 
-    public function data_penilaian($id_alternatif, $id_kriteria)
+    public function data_penilaian($id_alternatif, $id_kriteria, $bulan, $tahun)
     {
-        $query = $this->db->query("SELECT * FROM penilaian WHERE id_alternatif='$id_alternatif' AND id_kriteria='$id_kriteria';");
+        $query = $this->db->query("
+        SELECT * 
+        FROM penilaian 
+        WHERE id_alternatif='$id_alternatif' 
+        AND id_kriteria='$id_kriteria' 
+        AND bulan='$bulan' 
+        AND tahun='$tahun'
+    ");
         return $query->row_array();
     }
-    public function untuk_tombol($id_alternatif)
+
+
+
+    public function untuk_tombol($id_alternatif, $bulan, $tahun)
     {
-        $query = $this->db->query("SELECT * FROM penilaian WHERE id_alternatif='$id_alternatif';");
+        $query = $this->db->query("SELECT * FROM penilaian WHERE id_alternatif='$id_alternatif' AND bulan='$bulan' 
+        AND tahun='$tahun';");
         return $query->num_rows();
     }
     public function data_sub_kriteria($id_kriteria)
@@ -74,5 +92,20 @@ class Penilaian_model extends CI_Model
         return $this->db
             ->get_where('sub_kriteria', ['id_sub_kriteria' => $id])
             ->row_array();
+    }
+
+    public function get_alternatif_penilaian($bulan, $tahun)
+    {
+        $this->db->select('a.id_alternatif, a.nama');
+        $this->db->from('alternatif a');
+        $this->db->join(
+            'penilaian p',
+            'a.id_alternatif = p.id_alternatif 
+         AND p.bulan = ' . $bulan . '
+         AND p.tahun = ' . $tahun,
+            'left'
+        );
+        $this->db->group_by('a.id_alternatif');
+        return $this->db->get()->result();
     }
 }
