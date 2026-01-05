@@ -16,21 +16,26 @@ class Perhitungan extends CI_Controller
     public function index()
     {
         if ($this->session->userdata('id_user_level') != "1") {
-?>
-            <script type="text/javascript">
-                alert('Anda tidak berhak mengakses halaman ini!');
-                window.location = '<?php echo base_url("Login/home"); ?>'
-            </script>
-<?php
+            echo "<script>alert('Anda tidak berhak mengakses halaman ini!'); window.location='" . base_url("Login/home") . "'</script>";
+            return;
         }
+
+        $bulan = $this->input->get('bulan') ?? date('n');
+        $tahun = $this->input->get('tahun') ?? date('Y');
+
+        $this->Perhitungan_model->hapus_hasil($bulan, $tahun); // optional, bisa diganti update
+
         $data = [
             'page' => "Perhitungan",
+            'bulan' => $bulan,
+            'tahun' => $tahun,
             'kriteria' => $this->Perhitungan_model->get_kriteria(),
-            'alternatif' => $this->Perhitungan_model->get_alternatif()
+            'alternatif' => $this->Perhitungan_model->get_alternatif($bulan, $tahun) // nanti di model kita filter
         ];
 
         $this->load->view('Perhitungan/perhitungan', $data);
     }
+
 
     public function hasil()
     {
