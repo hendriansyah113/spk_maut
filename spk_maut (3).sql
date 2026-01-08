@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 21 Des 2025 pada 05.49
+-- Waktu pembuatan: 05 Jan 2026 pada 20.21
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 7.4.30
 
@@ -61,19 +61,41 @@ CREATE TABLE `hasil` (
   `id_hasil` int(11) NOT NULL,
   `id_alternatif` int(11) NOT NULL,
   `nilai` float(10,4) NOT NULL,
-  `NAN` int(11) NOT NULL
+  `NAN` int(11) NOT NULL,
+  `bulan` int(11) DEFAULT NULL,
+  `tahun` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data untuk tabel `hasil`
 --
 
-INSERT INTO `hasil` (`id_hasil`, `id_alternatif`, `nilai`, `NAN`) VALUES
-(1, 65, 23.3330, 0),
-(2, 66, 30.0000, 0),
-(3, 67, 21.6660, 0),
-(4, 68, 93.3340, 0),
-(5, 69, 20.0000, 0);
+INSERT INTO `hasil` (`id_hasil`, `id_alternatif`, `nilai`, `NAN`, `bulan`, `tahun`) VALUES
+(71, 65, 0.0000, 0, 5, 2026),
+(72, 66, 0.0000, 0, 5, 2026),
+(73, 67, 0.0000, 0, 5, 2026),
+(74, 68, 0.0000, 0, 5, 2026),
+(75, 69, 0.0000, 0, 5, 2026),
+(81, 65, 0.0000, 0, 0, 2026),
+(82, 66, 0.0000, 0, 0, 2026),
+(83, 67, 0.0000, 0, 0, 2026),
+(84, 68, 0.0000, 0, 0, 2026),
+(85, 69, 0.0000, 0, 0, 2026),
+(111, 65, 0.0000, 0, 4, 2026),
+(112, 66, 0.0000, 0, 4, 2026),
+(113, 67, 0.0000, 0, 4, 2026),
+(114, 68, 0.0000, 0, 4, 2026),
+(115, 69, 0.0000, 0, 4, 2026),
+(176, 65, 0.0000, 0, 2, 2026),
+(177, 66, 100.0000, 0, 2, 2026),
+(178, 67, -25.0000, 0, 2, 2026),
+(179, 68, -25.0000, 0, 2, 2026),
+(180, 69, -25.0000, 0, 2, 2026),
+(206, 65, 43.3340, 0, 1, 2026),
+(207, 66, 30.0000, 0, 1, 2026),
+(208, 67, 21.6660, 0, 1, 2026),
+(209, 68, 93.3340, 0, 1, 2026),
+(210, 69, 20.0000, 0, 1, 2026);
 
 -- --------------------------------------------------------
 
@@ -108,34 +130,48 @@ CREATE TABLE `penilaian` (
   `id_penilaian` int(11) NOT NULL,
   `id_alternatif` int(11) NOT NULL,
   `id_kriteria` int(11) NOT NULL,
-  `nilai` int(100) NOT NULL
+  `nilai` int(100) NOT NULL,
+  `bulan` int(11) DEFAULT NULL,
+  `tahun` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data untuk tabel `penilaian`
 --
 
-INSERT INTO `penilaian` (`id_penilaian`, `id_alternatif`, `id_kriteria`, `nilai`) VALUES
-(336, 65, 24, 173),
-(337, 65, 25, 167),
-(338, 65, 26, 171),
-(339, 65, 27, 164),
-(340, 66, 24, 173),
-(341, 66, 25, 167),
-(342, 66, 26, 180),
-(343, 66, 27, 174),
-(344, 67, 24, 178),
-(345, 67, 25, 167),
-(346, 67, 26, 176),
-(347, 67, 27, 182),
-(348, 68, 24, 178),
-(349, 68, 25, 177),
-(350, 68, 26, 171),
-(351, 68, 27, 174),
-(352, 69, 24, 173),
-(353, 69, 25, 167),
-(354, 69, 26, 184),
-(355, 69, 27, 182);
+INSERT INTO `penilaian` (`id_penilaian`, `id_alternatif`, `id_kriteria`, `nilai`, `bulan`, `tahun`) VALUES
+(336, 65, 24, 173, 1, 2026),
+(337, 65, 25, 167, 1, 2026),
+(338, 65, 26, 171, 1, 2026),
+(339, 65, 27, 174, 1, 2026),
+(340, 66, 24, 173, 1, 2026),
+(341, 66, 25, 167, 1, 2026),
+(342, 66, 26, 180, 1, 2026),
+(343, 66, 27, 174, 1, 2026),
+(344, 67, 24, 178, 1, 2026),
+(345, 67, 25, 167, 1, 2026),
+(346, 67, 26, 176, 1, 2026),
+(347, 67, 27, 182, 1, 2026),
+(348, 68, 24, 178, 1, 2026),
+(349, 68, 25, 177, 1, 2026),
+(350, 68, 26, 171, 1, 2026),
+(351, 68, 27, 174, 1, 2026),
+(352, 69, 24, 173, 1, 2026),
+(353, 69, 25, 167, 1, 2026),
+(354, 69, 26, 184, 1, 2026),
+(355, 69, 27, 182, 1, 2026),
+(356, 65, 24, 156, 2, 2026),
+(357, 65, 25, 179, 2, 2026),
+(358, 65, 26, 181, 2, 2026),
+(359, 65, 27, 183, 2, 2026),
+(360, 66, 24, 178, 2, 2026),
+(361, 66, 25, 177, 2, 2026),
+(362, 66, 26, 184, 2, 2026),
+(363, 66, 27, 174, 2, 2026),
+(364, 65, 24, 168, 4, 2026),
+(365, 65, 25, 167, 4, 2026),
+(366, 65, 26, 171, 4, 2026),
+(367, 65, 27, 174, 4, 2026);
 
 -- --------------------------------------------------------
 
@@ -285,7 +321,7 @@ ALTER TABLE `alternatif`
 -- AUTO_INCREMENT untuk tabel `hasil`
 --
 ALTER TABLE `hasil`
-  MODIFY `id_hasil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_hasil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=211;
 
 --
 -- AUTO_INCREMENT untuk tabel `kriteria`
@@ -297,7 +333,7 @@ ALTER TABLE `kriteria`
 -- AUTO_INCREMENT untuk tabel `penilaian`
 --
 ALTER TABLE `penilaian`
-  MODIFY `id_penilaian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=356;
+  MODIFY `id_penilaian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=368;
 
 --
 -- AUTO_INCREMENT untuk tabel `sub_kriteria`

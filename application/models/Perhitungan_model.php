@@ -37,9 +37,9 @@ class Perhitungan_model extends CI_Model
         return $query->row_array();
     }
 
-    public function get_hasil()
+    public function get_hasil($bulan, $tahun)
     {
-        $query = $this->db->query("SELECT * FROM hasil ORDER BY nilai DESC;");
+        $query = $this->db->query("SELECT * FROM hasil WHERE bulan='$bulan' AND tahun='$tahun' ORDER BY nilai DESC;");
         return $query->result();
     }
 

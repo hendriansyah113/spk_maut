@@ -68,10 +68,19 @@
                                             class="btn btn-success btn-user btn-block"><i
                                                 class="fas fa-fw fa-sign-in-alt mr-1"></i> Masuk</button>
                                     </form>
+                                    <div class="text-center mt-3">
+                                        <a class="small text-success" href="<?= base_url('Login/lupa_password'); ?>">
+                                            Lupa Password?
+                                        </a>
+                                    </div>
                                 </div>
+
                             </div>
+
                         </div>
                     </div>
+
+
                 </div>
             </div>
 

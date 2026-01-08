@@ -43,7 +43,7 @@
        <!-- Sidebar - Brand -->
        <a class="sidebar-brand d-flex align-items-center justify-content-center"
          href="<?= base_url('Login/home'); ?>">
-         <img src="<?= base_url('assets/') ?>img/logostg.png" alt="" srcset="" width="50%" color="white">
+         <img src="<?= base_url('assets/') ?>img/logostg2.png" alt="" srcset="" width="50%" color="white">
        </a>
 
        <!-- Divider -->

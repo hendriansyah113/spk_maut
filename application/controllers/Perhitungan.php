@@ -41,13 +41,15 @@ class Perhitungan extends CI_Controller
     {
         $kriteria = $this->Perhitungan_model->get_kriteria();
         $alternatif = $this->Perhitungan_model->get_alternatif();
+        $bulan = $this->input->get('bulan') ?? date('n');
+        $tahun = $this->input->get('tahun') ?? date('Y');
 
-        $this->Perhitungan_model->hapus_hasil();
+        $this->Perhitungan_model->hapus_hasil($bulan, $tahun); // optional, bisa diganti update
         foreach ($alternatif as $keys) {
             $nilai_total = 0;
             foreach ($kriteria as $key) {
-                $data_pencocokan = $this->Perhitungan_model->data_nilai($keys->id_alternatif, $key->id_kriteria);
-                $min_max = $this->Perhitungan_model->get_max_min($key->id_kriteria);
+                $data_pencocokan = $this->Perhitungan_model->data_nilai($keys->id_alternatif, $key->id_kriteria, $bulan, $tahun);
+                $min_max = $this->Perhitungan_model->get_max_min($key->id_kriteria, $bulan, $tahun);
                 $selisih = $min_max['max'] - $min_max['min'];
 
                 $hasil_normalisasi = @(round(($data_pencocokan['nilai'] - $min_max['min']) / ($min_max['max'] - $min_max['min']), 4));
@@ -59,12 +61,12 @@ class Perhitungan extends CI_Controller
                 'nilai' => $nilai_total
             ];
 
-            $result = $this->Perhitungan_model->insert_nilai_hasil($hasil_akhir);
+            $result = $this->Perhitungan_model->insert_nilai_hasil($hasil_akhir, $bulan, $tahun);
         }
 
         $data = [
             'page' => "Hasil",
-            'hasil' => $this->Perhitungan_model->get_hasil()
+            'hasil' => $this->Perhitungan_model->get_hasil($bulan, $tahun),
         ];
 
         $this->load->view('Perhitungan/hasil', $data);
