@@ -61,4 +61,11 @@ class Perhitungan_model extends CI_Model
         $query = $this->db->query("DELETE FROM hasil WHERE bulan='$bulan' AND tahun='$tahun';");
         return $query;
     }
+
+    public function total_bobot()
+    {
+        $this->db->select_sum('bobot');
+        $query = $this->db->get('kriteria')->row();
+        return (float) $query->bobot;
+    }
 }

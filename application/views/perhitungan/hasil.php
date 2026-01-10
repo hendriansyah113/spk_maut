@@ -3,6 +3,9 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-chart-area"></i> Data Hasil Akhir</h1>
 </div>
+<?php
+$is_admin = $this->session->userdata('id_user_level') == "1";
+?>
 
 <div class="card shadow mb-4">
     <!-- /.card-header -->
@@ -16,26 +19,26 @@
                     <select name="bulan" class="form-control">
                         <option value="">-- Pilih Bulan --</option>
                         <?php
-						$bulan = [
-							1 => 'Januari',
-							2 => 'Februari',
-							3 => 'Maret',
-							4 => 'April',
-							5 => 'Mei',
-							6 => 'Juni',
-							7 => 'Juli',
-							8 => 'Agustus',
-							9 => 'September',
-							10 => 'Oktober',
-							11 => 'November',
-							12 => 'Desember'
-						];
-						$bulan_pilih = $this->input->get('bulan') ?? date('n');
-						foreach ($bulan as $k => $v):
-						?>
-                        <option value="<?= $k ?>" <?= ($k == $bulan_pilih) ? 'selected' : '' ?>>
-                            <?= $v ?>
-                        </option>
+                        $bulan = [
+                            1 => 'Januari',
+                            2 => 'Februari',
+                            3 => 'Maret',
+                            4 => 'April',
+                            5 => 'Mei',
+                            6 => 'Juni',
+                            7 => 'Juli',
+                            8 => 'Agustus',
+                            9 => 'September',
+                            10 => 'Oktober',
+                            11 => 'November',
+                            12 => 'Desember'
+                        ];
+                        $bulan_pilih = $this->input->get('bulan') ?? date('n');
+                        foreach ($bulan as $k => $v):
+                        ?>
+                            <option value="<?= $k ?>" <?= ($k == $bulan_pilih) ? 'selected' : '' ?>>
+                                <?= $v ?>
+                            </option>
                         <?php endforeach ?>
                     </select>
                 </div>
@@ -66,46 +69,50 @@
                         <th>Nik</th>
                         <th>Alternatif / Nama Karyawan</th>
                         <th>Departemen</th>
-                        <th>Nilai Preferensi</th>
+                        <?php if ($is_admin): ?>
+                            <th>Nilai Preferensi</th>
+                        <?php endif; ?>
                         <th width="15%">Ranking</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-					$no = 1;
-					foreach ($hasil as $keys): ?>
-                    <tr align="center">
-                        <td>
-                            <?php
-								$nim_alternatif = $this->Perhitungan_model->get_hasil_alternatif($keys->id_alternatif);
-								echo $nim_alternatif['nik'];
-								?>
+                    $no = 1;
+                    foreach ($hasil as $keys): ?>
+                        <tr align="center">
+                            <td>
+                                <?php
+                                $nim_alternatif = $this->Perhitungan_model->get_hasil_alternatif($keys->id_alternatif);
+                                echo $nim_alternatif['nik'];
+                                ?>
 
-                        </td>
+                            </td>
 
-                        <td align="left" style="padding-left: 5px;">
+                            <td align="left" style="padding-left: 5px;">
 
-                            <?php
-								$nama_alternatif = $this->Perhitungan_model->get_hasil_alternatif($keys->id_alternatif);
-								echo $nama_alternatif['nama'];
-								?>
+                                <?php
+                                $nama_alternatif = $this->Perhitungan_model->get_hasil_alternatif($keys->id_alternatif);
+                                echo $nama_alternatif['nama'];
+                                ?>
 
-                        </td>
+                            </td>
 
-                        <td style="padding-left: 5px;">
+                            <td style="padding-left: 5px;">
 
-                            <?php
-								$jurusan_alternatif = $this->Perhitungan_model->get_hasil_alternatif($keys->id_alternatif);
-								echo $jurusan_alternatif['departemen'];
-								?>
+                                <?php
+                                $jurusan_alternatif = $this->Perhitungan_model->get_hasil_alternatif($keys->id_alternatif);
+                                echo $jurusan_alternatif['departemen'];
+                                ?>
 
-                        </td>
-                        <td><?= $keys->nilai ?></td>
-                        <td><?= $no; ?></td>
-                    </tr>
+                            </td>
+                            <?php if ($is_admin): ?>
+                                <td><?= $keys->nilai ?></td>
+                            <?php endif; ?>
+                            <td><?= $no; ?></td>
+                        </tr>
                     <?php
-						$no++;
-					endforeach ?>
+                        $no++;
+                    endforeach ?>
                 </tbody>
             </table>
         </div>

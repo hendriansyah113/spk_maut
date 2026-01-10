@@ -20,6 +20,17 @@ class Perhitungan extends CI_Controller
             return;
         }
 
+        // CEK TOTAL BOBOT
+        $total_bobot = $this->Perhitungan_model->total_bobot();
+
+        if ($total_bobot != 100) {
+            echo "<script>
+            alert('Total bobot kriteria saat ini = {$total_bobot}.\\nHarap sesuaikan total bobot menjadi 100 terlebih dahulu.');
+            window.location='" . base_url("Kriteria") . "'
+        </script>";
+            return;
+        }
+
         $bulan = $this->input->get('bulan') ?? date('n');
         $tahun = $this->input->get('tahun') ?? date('Y');
 

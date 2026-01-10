@@ -37,16 +37,16 @@
                     <div class="card-body">
                         <h4 class="text-center mb-3">Lupa Password</h4>
 
-                        <form method="post" action="<?= base_url('Login/update_password') ?>">
-                            <input type="hidden" name="token" value="<?= $token ?>">
+                        <form method="post" action="<?= base_url('Login/proses_lupa_password') ?>">
                             <div class="form-group">
-                                <label>Password Baru</label>
-                                <input type="password" name="password" class="form-control" required>
+                                <label>Email</label>
+                                <input type="email" name="email" class="form-control" required>
                             </div>
                             <button type="submit" class="btn btn-success btn-block">
-                                Update Password
+                                Kirim Link Reset
                             </button>
                         </form>
+
 
 
 

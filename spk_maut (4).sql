@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 05 Jan 2026 pada 20.21
+-- Waktu pembuatan: 09 Jan 2026 pada 01.22
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 7.4.30
 
@@ -91,11 +91,11 @@ INSERT INTO `hasil` (`id_hasil`, `id_alternatif`, `nilai`, `NAN`, `bulan`, `tahu
 (178, 67, -25.0000, 0, 2, 2026),
 (179, 68, -25.0000, 0, 2, 2026),
 (180, 69, -25.0000, 0, 2, 2026),
-(206, 65, 43.3340, 0, 1, 2026),
-(207, 66, 30.0000, 0, 1, 2026),
-(208, 67, 21.6660, 0, 1, 2026),
-(209, 68, 93.3340, 0, 1, 2026),
-(210, 69, 20.0000, 0, 1, 2026);
+(241, 65, 43.3340, 0, 1, 2026),
+(242, 66, 30.0000, 0, 1, 2026),
+(243, 67, 21.6660, 0, 1, 2026),
+(244, 68, 93.3340, 0, 1, 2026),
+(245, 69, 20.0000, 0, 1, 2026);
 
 -- --------------------------------------------------------
 
@@ -224,17 +224,19 @@ CREATE TABLE `user` (
   `nama` varchar(200) NOT NULL,
   `email` varchar(100) NOT NULL,
   `username` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL
+  `password` varchar(100) NOT NULL,
+  `reset_token` varchar(255) DEFAULT NULL,
+  `token_expired` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data untuk tabel `user`
 --
 
-INSERT INTO `user` (`id_user`, `id_user_level`, `nama`, `email`, `username`, `password`) VALUES
-(1, 1, 'Yesa', 'admin@gmail.com', 'admin', '21232f297a57a5a743894a0e4a801fc3'),
-(7, 2, 'User', 'user@gmail.com', 'user', 'ee11cbb19052e40b07aac0ca060c23ee'),
-(8, 2, 'hehe', 'hehe@gmail.com', 'hehe', '529ca8050a00180790cf88b63468826a');
+INSERT INTO `user` (`id_user`, `id_user_level`, `nama`, `email`, `username`, `password`, `reset_token`, `token_expired`) VALUES
+(1, 1, 'Yesa', 'hendriansyah113@gmail.com', 'admin', '21232f297a57a5a743894a0e4a801fc3', NULL, NULL),
+(7, 2, 'User', 'darkveeder80@gmail.com', 'user', 'ee11cbb19052e40b07aac0ca060c23ee', '8e07e6dd1d659fd2c162fd00289c8bc1068f358bfdbf355c7f5cb9fdd79b251d', '2026-01-09 00:38:30'),
+(8, 2, 'hehe', 'kelompokkelampangan@gmail.com', 'hehe', '529ca8050a00180790cf88b63468826a', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -321,7 +323,7 @@ ALTER TABLE `alternatif`
 -- AUTO_INCREMENT untuk tabel `hasil`
 --
 ALTER TABLE `hasil`
-  MODIFY `id_hasil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=211;
+  MODIFY `id_hasil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=246;
 
 --
 -- AUTO_INCREMENT untuk tabel `kriteria`

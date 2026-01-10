@@ -16,9 +16,9 @@
                 <thead class="bg-success text-white">
                     <tr align="center">
                         <th width="5%">No</th>
-                        <th>Alternatif</th>
+                        <th>Pegawai</th>
                         <?php foreach ($kriteria as $key): ?>
-                        <th><?= $key->kode_kriteria ?></th>
+                            <th><?= $key->kode_kriteria ?></th>
                         <?php endforeach ?>
                     </tr>
 
@@ -30,26 +30,26 @@
                                 <select name="bulan" class="form-control">
                                     <option value="">-- Pilih Bulan --</option>
                                     <?php
-									$bulan = [
-										1 => 'Januari',
-										2 => 'Februari',
-										3 => 'Maret',
-										4 => 'April',
-										5 => 'Mei',
-										6 => 'Juni',
-										7 => 'Juli',
-										8 => 'Agustus',
-										9 => 'September',
-										10 => 'Oktober',
-										11 => 'November',
-										12 => 'Desember'
-									];
-									$bulan_pilih = $this->input->get('bulan') ?? date('n');
-									foreach ($bulan as $k => $v):
-									?>
-                                    <option value="<?= $k ?>" <?= ($k == $bulan_pilih) ? 'selected' : '' ?>>
-                                        <?= $v ?>
-                                    </option>
+                                    $bulan = [
+                                        1 => 'Januari',
+                                        2 => 'Februari',
+                                        3 => 'Maret',
+                                        4 => 'April',
+                                        5 => 'Mei',
+                                        6 => 'Juni',
+                                        7 => 'Juli',
+                                        8 => 'Agustus',
+                                        9 => 'September',
+                                        10 => 'Oktober',
+                                        11 => 'November',
+                                        12 => 'Desember'
+                                    ];
+                                    $bulan_pilih = $this->input->get('bulan') ?? date('n');
+                                    foreach ($bulan as $k => $v):
+                                    ?>
+                                        <option value="<?= $k ?>" <?= ($k == $bulan_pilih) ? 'selected' : '' ?>>
+                                            <?= $v ?>
+                                        </option>
                                     <?php endforeach ?>
                                 </select>
                             </div>
@@ -70,45 +70,45 @@
 
                 <tbody">
                     <?php
-					$no = 1;
-					foreach ($alternatif as $keys): ?>
-                    <tr align="center">
-                        <td><?= $no; ?></td>
-                        <td align="left"><?= $keys->nama ?></td>
-                        <?php foreach ($kriteria as $key): ?>
-                        <td>
-                            <?php
-									$data_pencocokan = $this->Perhitungan_model->data_nilai($keys->id_alternatif, $key->id_kriteria, $bulan_pilih, $tahun);
-									echo $data_pencocokan['nilai'] ?? 0;
+                    $no = 1;
+                    foreach ($alternatif as $keys): ?>
+                        <tr align="center">
+                            <td><?= $no; ?></td>
+                            <td align="left"><?= $keys->nama ?></td>
+                            <?php foreach ($kriteria as $key): ?>
+                                <td>
+                                    <?php
+                                    $data_pencocokan = $this->Perhitungan_model->data_nilai($keys->id_alternatif, $key->id_kriteria, $bulan_pilih, $tahun);
+                                    echo $data_pencocokan['nilai'] ?? 0;
 
-									?>
-                        </td>
-                        <?php endforeach ?>
-                    </tr>
+                                    ?>
+                                </td>
+                            <?php endforeach ?>
+                        </tr>
                     <?php
-						$no++;
-					endforeach
-					?>
+                        $no++;
+                    endforeach
+                    ?>
                     <tr align="center" class="bg-light">
                         <th colspan="2">Nilai A+</th>
                         <?php foreach ($kriteria as $key): ?>
-                        <th>
-                            <?php
-								$min_max = $this->Perhitungan_model->get_max_min($key->id_kriteria, $bulan_pilih, $tahun);
-								echo $min_max['max'];
-								?>
-                        </th>
+                            <th>
+                                <?php
+                                $min_max = $this->Perhitungan_model->get_max_min($key->id_kriteria, $bulan_pilih, $tahun);
+                                echo $min_max['max'];
+                                ?>
+                            </th>
                         <?php endforeach ?>
                     </tr>
                     <tr align="center" class="bg-light">
                         <th colspan="2">Nilai A-</th>
                         <?php foreach ($kriteria as $key): ?>
-                        <th>
-                            <?php
-								$min_max = $this->Perhitungan_model->get_max_min($key->id_kriteria, $bulan_pilih, $tahun);
-								echo $min_max['min'];
-								?>
-                        </th>
+                            <th>
+                                <?php
+                                $min_max = $this->Perhitungan_model->get_max_min($key->id_kriteria, $bulan_pilih, $tahun);
+                                echo $min_max['min'];
+                                ?>
+                            </th>
                         <?php endforeach ?>
                     </tr>
                     </tbody>
@@ -129,34 +129,34 @@
                 <thead class="bg-success text-white">
                     <tr align="center">
                         <th width="5%">No</th>
-                        <th>Nama Alternatif</th>
+                        <th>Nama Pegawai</th>
                         <?php foreach ($kriteria as $key): ?>
-                        <th><?= $key->kode_kriteria ?></th>
+                            <th><?= $key->kode_kriteria ?></th>
                         <?php endforeach ?>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-					$no = 1;
-					foreach ($alternatif as $keys): ?>
-                    <tr align="center">
-                        <td><?= $no; ?></td>
-                        <td align="left"><?= $keys->nama ?></td>
-                        <?php foreach ($kriteria as $key): ?>
-                        <td>
-                            <?php
-									$data_pencocokan = $this->Perhitungan_model->data_nilai($keys->id_alternatif, $key->id_kriteria, $bulan_pilih, $tahun);
-									$min_max = $this->Perhitungan_model->get_max_min($key->id_kriteria, $bulan_pilih, $tahun);
-									$hasil = @(round(($data_pencocokan['nilai'] - $min_max['min']) / ($min_max['max'] - $min_max['min']), 4));
-									echo $hasil;
-									?>
-                        </td>
-                        <?php endforeach ?>
-                    </tr>
+                    $no = 1;
+                    foreach ($alternatif as $keys): ?>
+                        <tr align="center">
+                            <td><?= $no; ?></td>
+                            <td align="left"><?= $keys->nama ?></td>
+                            <?php foreach ($kriteria as $key): ?>
+                                <td>
+                                    <?php
+                                    $data_pencocokan = $this->Perhitungan_model->data_nilai($keys->id_alternatif, $key->id_kriteria, $bulan_pilih, $tahun);
+                                    $min_max = $this->Perhitungan_model->get_max_min($key->id_kriteria, $bulan_pilih, $tahun);
+                                    $hasil = @(round(($data_pencocokan['nilai'] - $min_max['min']) / ($min_max['max'] - $min_max['min']), 4));
+                                    echo $hasil;
+                                    ?>
+                                </td>
+                            <?php endforeach ?>
+                        </tr>
 
                     <?php
-						$no++;
-					endforeach ?>
+                        $no++;
+                    endforeach ?>
                 </tbody>
             </table>
         </div>
@@ -175,18 +175,18 @@
                 <thead class="bg-success text-white">
                     <tr align="center">
                         <?php foreach ($kriteria as $key): ?>
-                        <th><?= $key->keterangan ?></th>
+                            <th><?= $key->keterangan ?></th>
                         <?php endforeach ?>
                     </tr>
                 </thead>
                 <tbody>
                     <tr align="center">
                         <?php foreach ($kriteria as $key): ?>
-                        <td>
-                            <?php
-								echo $key->bobot;
-								?>
-                        </td>
+                            <td>
+                                <?php
+                                echo $key->bobot;
+                                ?>
+                            </td>
                         <?php endforeach ?>
                     </tr>
                 </tbody>
@@ -208,46 +208,46 @@
                 <thead class="bg-success text-white">
                     <tr align="center">
                         <th width="5%">No</th>
-                        <th>Nama Alternatif</th>
+                        <th>Nama Pegawai</th>
                         <th>Perhitungan</th>
                         <th>Total Nilai Preferensi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-					$this->Perhitungan_model->hapus_hasil($bulan_pilih, $tahun); // optional, bisa diganti update
-					$no = 1;
-					foreach ($alternatif as $keys): ?>
-                    <tr align="center">
-                        <td><?= $no; ?></td>
-                        <td align="left"><?= $keys->nama ?></td>
-                        <td>SUM
-                            <?php
-								$nilai_total = 0;
-								foreach ($kriteria as $key):
-									$data_pencocokan = $this->Perhitungan_model->data_nilai($keys->id_alternatif, $key->id_kriteria, $bulan_pilih, $tahun);
-									$min_max = $this->Perhitungan_model->get_max_min($key->id_kriteria, $bulan_pilih, $tahun);
-									$hasil_normalisasi = @(round(($data_pencocokan['nilai'] - $min_max['min']) / ($min_max['max'] - $min_max['min']), 4));
-									$bobot = $key->bobot;
-									$nilai_total += $bobot * $hasil_normalisasi;
+                    $this->Perhitungan_model->hapus_hasil($bulan_pilih, $tahun); // optional, bisa diganti update
+                    $no = 1;
+                    foreach ($alternatif as $keys): ?>
+                        <tr align="center">
+                            <td><?= $no; ?></td>
+                            <td align="left"><?= $keys->nama ?></td>
+                            <td>SUM
+                                <?php
+                                $nilai_total = 0;
+                                foreach ($kriteria as $key):
+                                    $data_pencocokan = $this->Perhitungan_model->data_nilai($keys->id_alternatif, $key->id_kriteria, $bulan_pilih, $tahun);
+                                    $min_max = $this->Perhitungan_model->get_max_min($key->id_kriteria, $bulan_pilih, $tahun);
+                                    $hasil_normalisasi = @(round(($data_pencocokan['nilai'] - $min_max['min']) / ($min_max['max'] - $min_max['min']), 4));
+                                    $bobot = $key->bobot;
+                                    $nilai_total += $bobot * $hasil_normalisasi;
 
-									echo "(" . $bobot . "x" . $hasil_normalisasi . ") ";
-								endforeach;
-								$hasil_akhir = [
-									'id_alternatif' => $keys->id_alternatif,
-									'nilai' => $nilai_total
-								];
-								$result = $this->Perhitungan_model->insert_nilai_hasil($hasil_akhir, $bulan_pilih, $tahun);
-								?>
-                        </td>
-                        <td>
-                            <?= $nilai_total ?>
-                        </td>
-                    </tr>
+                                    echo "(" . $bobot . "x" . $hasil_normalisasi . ") ";
+                                endforeach;
+                                $hasil_akhir = [
+                                    'id_alternatif' => $keys->id_alternatif,
+                                    'nilai' => $nilai_total
+                                ];
+                                $result = $this->Perhitungan_model->insert_nilai_hasil($hasil_akhir, $bulan_pilih, $tahun);
+                                ?>
+                            </td>
+                            <td>
+                                <?= $nilai_total ?>
+                            </td>
+                        </tr>
 
                     <?php
-						$no++;
-					endforeach ?>
+                        $no++;
+                    endforeach ?>
                 </tbody>
             </table>
         </div>

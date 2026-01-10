@@ -49,9 +49,25 @@ class Login extends CI_Controller
 
     public function home()
     {
-        $data['page'] = "Dashboard";
+        $bulan = $this->input->get('bulan') ?? date('n');
+        $tahun = $this->input->get('tahun') ?? date('Y');
+
+        $this->load->model('Dashboard_model');
+
+
+        $data = [
+            'page' => "Dashboard",
+            'bulan' => $bulan,
+            'tahun' => $tahun,
+            'total_alternatif' => $this->Dashboard_model->total_alternatif($bulan, $tahun),
+            'total_kriteria' => $this->Dashboard_model->total_kriteria(),
+            'ranking_teratas' => $this->Dashboard_model->ranking_teratas($bulan, $tahun),
+            'grafik' => $this->Dashboard_model->grafik_nilai($bulan, $tahun)
+        ];
+
         $this->load->view('admin/index', $data);
     }
+
 
     public function lupa_password()
     {

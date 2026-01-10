@@ -19,6 +19,9 @@
 		margin-top: 15px;
 	}
 </style>
+<?php
+$is_admin = $this->session->userdata('id_user_level') == "1";
+?>
 
 <body>
 	<table style="width: 100%;">
@@ -43,7 +46,9 @@
 				<th>Nik</th>
 				<th>Alternatif / Nama Karyawan</th>
 				<th>Departemen</th>
-				<th>Nilai Preferensi</th>
+				<?php if ($is_admin): ?>
+					<th>Nilai Preferensi</th>
+				<?php endif; ?>
 				<th width="15%">Ranking</th>
 			</tr>
 		</thead>
@@ -73,7 +78,9 @@
 
 
 					</td>
-					<td><?= $keys->nilai ?></td>
+					<?php if ($is_admin): ?>
+						<td><?= $keys->nilai ?></td>
+					<?php endif; ?>
 					<td><?= $no; ?></td>
 				</tr>
 			<?php
